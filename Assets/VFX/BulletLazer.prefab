@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd706e99050bf97449133734bb049245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 25
   parent: {fileID: 0}
   VfxHit: {fileID: 1851452413125753126, guid: 567c76c79f23bd84388e8e744bf01995, type: 3}
   m_Speed: 45

@@ -25,4 +25,9 @@ public class CharacterSpawner : NetworkBehaviour
             }
         }
     }
+
+    public void Update()
+    {
+        
+    }
 }

@@ -9,6 +9,7 @@ public class Laser : NetworkBehaviour
 {
     public int damage;
     public PlayerShooting parent;
+    public GameObject DestoryPlayer;
 
     [SerializeField] private GameObject VfxHit;
     [SerializeField] private float m_Speed = 10f;   // this is the projectile's speed
@@ -31,9 +32,21 @@ public class Laser : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsOwner) return;
+        PlayerHealthNetwork healthScript = collision.gameObject.GetComponent<PlayerHealthNetwork>();
+        Debug.Log("hit");
+        if (healthScript != null)
+        {
+            healthScript.TakeDamageServerRpc(damage);
+        }
+
+        
         InstantiateHitParticlesServerRpc();
-        parent.DestroyServerRpc();     
+        StartCoroutine(DestroyProjectileServerSide());
+
+        if (!IsOwner) return;
+
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     [ServerRpc]
@@ -43,12 +56,18 @@ public class Laser : NetworkBehaviour
         GameObject hitImpact = Instantiate(VfxHit, transform.position, Quaternion.identity);
         hitImpact.GetComponent<NetworkObject>().Spawn();
         hitImpact.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
+
+
     }
 
 
+    
 
-
-
+    IEnumerator DestroyProjectileServerSide()
+    {
+        yield return new WaitForSeconds(2);
+             parent.DestroyServerRpc();
+    }
 
 
 

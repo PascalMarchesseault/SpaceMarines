@@ -28,7 +28,9 @@ public class LaserLocal : MonoBehaviour
     {
        
         InstantiateHitParticles();
-        Destroy(this); 
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        Destroy(this, 1); 
          
     }
 

@@ -76,6 +76,9 @@ public class PlayerController : NetworkBehaviour
             transform.Translate(movement, Space.World);
         }
 
+   
+
+
         //Animation
         float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
         float velocityX = Vector3.Dot(movement.normalized, transform.right);
